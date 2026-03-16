@@ -1,0 +1,13 @@
+<div class="create-board-card">
+  <form #BoardForm="ngForm" (ngSubmit)="boardAdd(BoardForm)" class="create-board-form">
+    <input 
+      type="text" 
+      ngModel 
+      name="Title" 
+      placeholder="Enter board title..." 
+      class="create-board-input"
+      required
+    />
+    <button type="submit" class="create-board-btn">Add Board</button>
+  </form>
+</div>

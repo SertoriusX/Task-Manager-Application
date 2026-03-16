@@ -1,0 +1,45 @@
+<div class="board-page">
+  @if(boardId){
+    @if(!isAuthenticated){
+      <div class="auth-message">
+        <p>Please log in to view board details</p>
+      </div>
+    } @else {
+      <div class="board-header">
+        <a routerLink="/board" class="back-link">← Back to Boards</a>
+        
+        @if(loading){
+          <div class="loading-indicator">Loading board...</div>
+        }
+        
+        @if(errorMessage){
+          <div class="error-message">{{errorMessage}}</div>
+        }
+        
+        @if(!loading && !errorMessage && board){
+          <h1 class="board-title">{{board.title}}</h1>
+        }
+        
+        @if(!loading && !errorMessage && !board){
+          <div class="error-message">Board not found</div>
+        }
+      </div>
+      
+      @if(!loading && board){
+        <div class="board-content">
+          <app-list-page [board]="board"></app-list-page>
+        </div>
+      }
+    }
+  } @else {
+    <div class="board-header">
+      <h1 class="board-title">Your Boards</h1>
+      <p class="board-subtitle">Create and manage your task boards</p>
+    </div>
+    <div class="board-content">
+    
+      <app-board-create></app-board-create>
+      <app-board-card></app-board-card>
+    </div>
+  }
+</div>

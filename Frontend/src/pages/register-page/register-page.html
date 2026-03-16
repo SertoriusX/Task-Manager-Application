@@ -1,0 +1,58 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <div class="login-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <line x1="19" y1="8" x2="19" y2="14"/>
+          <line x1="22" y1="11" x2="16" y2="11"/>
+        </svg>
+      </div>
+      <h1 class="register-title">Create Account</h1>
+      <p class="register-subtitle">Join TaskManager and organize your tasks</p>
+    </div>
+    <form #registerForm="ngForm" (ngSubmit)="createUser(registerForm)" class="register-form">
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input 
+          type="text" 
+          id="username"
+          name="username" 
+          ngModel 
+          required 
+          placeholder="Choose a username"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input 
+          type="email" 
+          id="email"
+          name="email" 
+          ngModel 
+          required 
+          placeholder="Enter your email"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input 
+          type="password" 
+          id="password"
+          name="password" 
+          ngModel 
+          required 
+          placeholder="Create a password"
+          class="form-input"
+        />
+      </div>
+      <button type="submit" class="submit-btn">Create Account</button>
+    </form>
+    <div class="register-footer">
+      Already have an account? <a routerLink="/login">Sign in</a>
+    </div>
+  </div>
+</div>

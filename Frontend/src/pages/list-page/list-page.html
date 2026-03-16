@@ -1,0 +1,59 @@
+<div class="toolbar">
+  <button class="form-btn" (click)="toggleForm()">
+    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+    Add List
+  </button>
+  <button class="layout-btn" (click)="toggleLayout()">
+    @if(layoutMode === 'row'){
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      Column
+    } @else {
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="18" rx="1"/>
+        <rect x="14" y="3" width="7" height="18" rx="1"/>
+      </svg>
+      Row
+    }
+  </button>
+</div>
+@if(showForm){
+<form #ListBoard="ngForm" (ngSubmit)="createList(ListBoard)" class="create-list-form">
+  <div class="form-header">
+    <h3>New List</h3>
+    <button type="button" class="close-btn" (click)="toggleForm()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" id="title" ngModel name="title" placeholder="Enter list title" required>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" class="cancel-btn" (click)="toggleForm()">Cancel</button>
+    <button type="submit" class="submit-btn">Create List</button>
+  </div>
+
+</form>
+
+
+}
+@if(isBrowser){
+<div cdkDropList [cdkDropListOrientation]="orientation" class="lists-container" [class.layout-column]="layoutMode === 'column'" (cdkDropListDropped)="drop($event)">
+@for(list of lists; track list.id){
+  <div cdkDrag class="drag-item">
+    <app-list-card [list]="list"></app-list-card>
+  </div>
+}
+</div>
+}

@@ -1,0 +1,177 @@
+<div class="list-detail-page">
+  <div class="header">
+    <button (click)="goBack()" class="back-link">
+      <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="19" y1="12" x2="5" y2="12"/>
+        <polyline points="12,19 5,12 12,5"/>
+      </svg>
+      Go Back
+    </button>
+    @if(list){
+      <h1>{{ list.title }} Tasks</h1>
+    } @else {
+      <h1> Tasks</h1>
+    }
+  </div>
+
+  @if(showSuccess){
+    <div class="success-message">
+      <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22,4 12,14.01 9,11.01"/>
+      </svg>
+      {{ successMessage }}
+    </div>
+  }
+
+  <div class="toolbar">
+    <button class="form-btn" (click)="toggleForm()">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Add Task
+    </button>
+  </div>
+
+  @if(showForm){
+    <form #TaskForm="ngForm" (ngSubmit)="createTask(TaskForm)" class="create-task-form">
+      <div class="form-header">
+        <h3>New Task</h3>
+        <button type="button" class="close-btn" (click)="toggleForm()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" ngModel name="title" placeholder="Enter task title" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" ngModel name="description" placeholder="Enter description" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select id="priority" ngModel name="priority">
+          <option value="0">Low</option>
+          <option value="1">Medium</option>
+          <option value="2">High</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="toggleForm()">Cancel</button>
+        <button type="submit" class="submit-btn">Create Task</button>
+      </div>
+    </form>
+  }
+
+  @if(isBrowser){
+    <div class="tasks-by-priority" cdkDropListGroup>
+      <div class="priority-column priority-high-col">
+        <h3 class="col-header high">High Priority</h3>
+        <div class="column-tasks"
+             cdkDropList
+             [cdkDropListData]="highPriorityTasks"
+             (cdkDropListDropped)="dropHigh($event)">
+          @for(task of highPriorityTasks; track task.id){
+            <div class="task-card priority-high" cdkDrag>
+              <div class="task-header">
+                <h3>{{ task.title }} </h3>
+                <div class="task-actions">
+                  <button class="delete-btn" (click)="deleteTask(task.id)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="3,6 5,6 21,6"/>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              @if(task.description){
+                <p class="task-description">{{ task.description }}</p>
+              }
+            </div>
+          }
+          @if(highPriorityTasks.length === 0){
+            <p class="no-tasks-col">No high priority tasks</p>
+          }
+        </div>
+      </div>
+
+      <div class="priority-column priority-medium-col">
+        <h3 class="col-header medium">Medium Priority</h3>
+        <div class="column-tasks"
+             cdkDropList
+             [cdkDropListData]="mediumPriorityTasks"
+             (cdkDropListDropped)="dropMedium($event)">
+          @for(task of mediumPriorityTasks; track task.id){
+            <div class="task-card priority-medium" cdkDrag>
+              <div class="task-header">
+                <h3>{{ task.title }}</h3>
+                <div class="task-actions">
+                  <button class="delete-btn" (click)="deleteTask(task.id)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="3,6 5,6 21,6"/>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              @if(task.description){
+                <p class="task-description">{{ task.description }}</p>
+              }
+            </div>
+          }
+          @if(mediumPriorityTasks.length === 0){
+            <p class="no-tasks-col">No medium priority tasks</p>
+          }
+        </div>
+      </div>
+
+      <div class="priority-column priority-low-col">
+        <h3 class="col-header low">Low Priority</h3>
+        <div class="column-tasks"
+             cdkDropList
+             [cdkDropListData]="lowPriorityTasks"
+             (cdkDropListDropped)="dropLow($event)">
+          @for(task of lowPriorityTasks; track task.id){
+            <div class="task-card priority-low" cdkDrag>
+              <div class="task-header">
+                <h3>{{ task.title }}</h3>
+                <div class="task-actions">
+                  <button class="delete-btn" (click)="deleteTask(task.id)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2">
+                      <polyline points="3,6 5,6 21,6"/>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              @if(task.description){
+                <p class="task-description">{{ task.description }}</p>
+              }
+            </div>
+          }
+          @if(lowPriorityTasks.length === 0){
+            <p class="no-tasks-col">No low priority tasks</p>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if(tasks.length === 0){
+    <div class="no-tasks">
+      <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+        <line x1="9" y1="12" x2="15" y2="12"/>
+        <line x1="9" y1="16" x2="15" y2="16"/>
+      </svg>
+      <p>No tasks yet</p>
+      <span>Click "Add Task" to create your first task</span>
+    </div>
+  }
+</div>

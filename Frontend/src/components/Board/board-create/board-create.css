@@ -1,0 +1,71 @@
+.create-board-card {
+  background: var(--card-background);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 2px dashed var(--border-color);
+  transition: var(--transition);
+}
+
+.create-board-card:hover {
+  border-color: var(--primary-color);
+}
+
+.create-board-form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.create-board-input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 15px;
+  transition: var(--transition);
+  background: var(--background-color);
+}
+
+.create-board-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.create-board-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.create-board-btn {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.create-board-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+}
+
+.create-board-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .create-board-form {
+    flex-direction: column;
+  }
+  
+  .create-board-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
