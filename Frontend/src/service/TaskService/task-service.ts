@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TaskModel } from '../../models/TaskManager/task-model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { TaskModel } from '../../models/TaskManager/task-model';
 export class TaskService {
 
 constructor(private http:HttpClient){}
-  private backApi=`http://localhost:5156/api/list`
+  private backApi=`${environment.apiUrl}/list`
 
   taskGetAll(listId:number) :Observable<TaskModel[]>{
     return this.http.get<TaskModel[]>(`${this.backApi}/${listId}/Task`);

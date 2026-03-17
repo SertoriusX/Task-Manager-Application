@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 import { AuthResponseModel } from '../../models/AuthResponseModel/auth-response-model';
 import { LoginModel } from '../../models/AuthModel/login-model';
 import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private backUrl="http://localhost:5156/api/Auth"
+  private backUrl=`${environment.apiUrl}/Auth`
   private platformId = inject(PLATFORM_ID);
   constructor(private http:HttpClient){}
 

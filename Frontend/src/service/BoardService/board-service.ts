@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BoardModel } from '../../models/BoardModel/board-model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
   constructor(private http:HttpClient){}
-  private backApi="http://localhost:5156/api/Board"
+  private backApi=`${environment.apiUrl}/Board`
 
   boardGetAll() :Observable<BoardModel[]>{
     return this.http.get<BoardModel[]>(this.backApi);

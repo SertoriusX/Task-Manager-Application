@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListModel } from '../../models/ListModel/list-model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ListService {
 
 
   constructor(private http:HttpClient){}
-  private backApi=`http://localhost:5156/api/boards`
+  private backApi=`${environment.apiUrl}/boards`
 
   listGetAll(boardId:number) :Observable<ListModel[]>{
     return this.http.get<ListModel[]>(`${this.backApi}/${boardId}/ListB`);

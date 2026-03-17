@@ -84,7 +84,10 @@ namespace Full_Stack_Task_Manager
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend", policy =>
-                    policy.WithOrigins("http://localhost:4200")
+                    policy.WithOrigins(
+                        "http://localhost:4200",
+                        "https://taskmanager-app.azurewebsites.net"
+                    )
                           .AllowAnyHeader()
                           .AllowAnyMethod());
             });
