@@ -35,6 +35,9 @@ for /f "delims=" %%i in ('az webapp deployment source show --resource-group Task
 git remote add azure https://%TOKEN%@taskmanager-api.scm.azurewebsites.net/taskmanager-api.git 2>nul
 git push azure master --force 2>nul
 
+echo Step 7: Start Backend...
+call az webapp start --name taskmanager-api --resource-group TaskManagerRG
+
 echo.
 echo ========================================
 echo   BACKEND DEPLOYED!

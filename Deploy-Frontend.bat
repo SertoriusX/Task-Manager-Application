@@ -25,6 +25,9 @@ echo Step 5: Deploy to Azure...
 cd /d "%~dp0Frontend\dist\TaskManager\browser"
 call az webapp up --name taskmanager-app --resource-group TaskManagerRG --runtime "NODE|18-lts" --html
 
+echo Step 6: Start Frontend...
+call az webapp start --name taskmanager-app --resource-group TaskManagerRG
+
 echo.
 echo ========================================
 echo   FRONTEND DEPLOYED!
